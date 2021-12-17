@@ -50,4 +50,5 @@ jobs:
           gh pr create --title "New translation batch" \
             --base=main \
             --head=${{ steps.set-branch.outputs.BRANCH_NAME }} \
+            --body="The newness" \
             --label "enhancement"
