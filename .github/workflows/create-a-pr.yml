@@ -26,7 +26,12 @@ jobs:
       - name: Checkout to branch
         run: git checkout -b ${{ steps.set-branch.outputs.BRANCH_NAME }}
 
-      - name: Add a new file and push
+      - name: Set Git identity
+        run: |
+          git config --global user.name "github-action"
+          git config --global user.email "actions@github.com"
+
+      - name: Add file and push
         run: |
           NOW=$(date +%s)
           echo $NOW > now.txt
