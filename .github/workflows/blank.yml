@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Create a PR
 
 # Controls when the workflow will run
 on:
@@ -16,16 +16,27 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v2
+      
+      - name: Set branch name
+        id: set-branch
+        run: |
+          echo "::set-output name=BRANCH_NAME::translation-batch-$(date +%Y-%m-%d__%H-%M)"
+      
+      - name: Checkout to branch
+        run: git checkout -b ${{ steps.set-branch.outputs.BRANCH_NAME }}
 
-      # Runs a single command using the runners shell
-      - name: Create an issue
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `${Date.now()}`,
-              labels: ['bug']
-            })
-
+      - name: Add a new file and push
+        run: |
+          NOW=$(date +%s)
+          echo $NOW > now.txt
+          git add now.txt
+          git commit -m "feat: add now.txt"
+          git push origin HEAD
+        
+      - name: Create a PR
+        run: |
+          gh pr create --title "New translation batch" \
+            --base=main \
+            --head=${{ steps.set-branch.outputs.BRANCH_NAME }} \
+            --label "enhancement"
