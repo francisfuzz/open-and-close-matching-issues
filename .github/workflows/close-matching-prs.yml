@@ -10,7 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
       - uses: francisfuzz/close-matching-issues@53db7a8e4d3231cb82cba145ed55468801e0707a
         with:
           query: 'type:pr label:enhancement'
