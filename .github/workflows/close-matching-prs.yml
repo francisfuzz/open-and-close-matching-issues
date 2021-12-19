@@ -5,12 +5,13 @@ on:
 
 permissions:
   issues: write
+  pull-requests: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: francisfuzz/close-matching-issues@53db7a8e4d3231cb82cba145ed55468801e0707a
+      - uses: lee-dohm/close-matching-issues@e9e43aad2fa6f06a058cedfd8fb975fd93b56d8f
         with:
-          query: 'type:pr label:enhancement'
+          query: 'type:pr label:translation-batch-es'
           token: ${{ secrets.GITHUB_TOKEN }}
