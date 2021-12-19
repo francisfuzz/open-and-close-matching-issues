@@ -51,4 +51,5 @@ jobs:
             --base=main \
             --head=${{ steps.set-branch.outputs.BRANCH_NAME }} \
             --body="The newness" \
-            --label "enhancement"
+            --label "translation-batch" \
+            --label "translation-batch-es"
